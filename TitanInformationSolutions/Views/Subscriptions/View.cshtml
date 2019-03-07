@@ -1,0 +1,168 @@
+﻿@model IEnumerable<TitanInformationSolutions.Models.Sub>
+
+@{
+    ViewData["Title"] = "View";
+}
+<h3> Message Sent</h3>
+<script type="text/javascript">
+            <text>
+            $(document).ready(function() {
+                alert('Message Sent')
+            });
+            </text>
+</script>
+<h2>Welcome to the Messenger</h2>
+
+<p>
+    <a asp-action="Create">(Note: you must give permission to recieve notificaitons)</a>
+</p>
+
+<form asp action="index">
+    <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
+    <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
+    <div class="form-horizontal">
+        <button class="btn" type="button" data-toggle="collapse" id="filterToggle" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            Send Message
+        </button>
+        <div class="collapse @(ViewData["Filtering"]) well" id="collapseFilter">
+            <div class="row">
+                <div class="form-group">
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label col-md-5">Search for recipient:</label>
+                    <div class="col-md-6">
+                        @Html.TextBox("SearchString", null, new { @class = "form-control" })
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-5">Category:</label>
+                        <select name="Choose a category">
+                            <option>Child and Youth</option>
+                            <option>Community Programs</option>
+                            <option>Family Resources</option>
+                            <option>Sports and Leisure</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-5">Program:</label>
+                        <select name="Choose a program">
+                            <option>Arts n crafts</option>
+                            <option>Duck duck goose</option>
+                            <option>World cup soccer</option>
+                            <option>Dream league basketball</option>
+                            <option>Wonderful Wiffleball</option>
+                            <option>Four square house rules</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-5">Recipient:</label>
+                        <select name="Choose a recipient">
+                            <option>Philip Lahm</option>
+                            <option>Ruud Guillit</option>
+                            <option>Maradona</option>
+                            <option>Lionel Messi</option>
+                            <option>Lozano</option>
+                            <option>Mohammed Salah</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4"> </label>
+                        <div class="col-md-8">
+                            <input type="submit" value="Send" name="actionButton" onclick="function" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Message</th>
+                        <th>Day</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PushEndpoint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PushP256DH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PushAuth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Parent)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td style="max-width: 100px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                    @Html.DisplayFor(modelItem => item.PushEndpoint)
+                </td>
+                <td style="max-width: 100px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                    @Html.DisplayFor(modelItem => item.PushP256DH)
+                </td>
+                <td style="max-width: 100px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                    @Html.DisplayFor(modelItem => item.PushAuth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Parent.firstName)
+                </td>
+                <td>
+                    <a asp-controller="WebPush" asp-action="Send" asp-route-id="@item.ID" asp-route-SubName="@item.Name">Send</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td style="max-width: 100px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                    @Html.DisplayFor(modelItem => item.PushEndpoint)
+                </td>
+                <td style="max-width: 100px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                    @Html.DisplayFor(modelItem => item.PushP256DH)
+                </td>
+                <td style="max-width: 100px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                    @Html.DisplayFor(modelItem => item.PushAuth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Parent.firstName)
+                </td>
+                <td>
+                    <a asp-controller="WebPush" asp-action="Send" asp-route-id="@item.ID" asp-route-SubName="@item.Name">Send</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="5" style="text-align: center; font-weight: bold;">
+                    No devices registered yet.
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

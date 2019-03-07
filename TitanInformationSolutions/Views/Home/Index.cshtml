@@ -1,0 +1,52 @@
+﻿@{
+	ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Newsfeed</h2>
+        <ul>   
+            <p>Aquatics</p>
+            <li>
+                Carole Haines: Bring spare clothes!
+            </li>
+            <p>Child Care</p>
+            <li>
+                Robert Fripp: We are learning how to paint today, so come prepared to make a mess!
+            </li>
+            <p>Soccer</p>
+            <li>
+                Jiminy Cricket: Late start today.
+            </li>
+        </ul>
+        
+        @*<h2>Aquatics</h2>
+        <p>(02/10/2019) Bring Spare Clothes!</p>
+        <p>(01/03/2019) Don't forget to bring an notebook to take notes!</p>
+        (maybe add vertial accordian here after 3 posts to expand if they want to see more)
+       
+        <h2>Child Care</h2>
+        <p>(02/08/2019) We are learning how to paint today, so come prepared to make a mess!  </p>
+        <p>(02/01/2019) Show and tell!</p>
+
+        <h2>Soccer</h2>
+        <p>(02/09/2019) Late start today</p>
+        <p>(02/02/2019) Changed to Gym 2 instead</p>*@
+    </div>
+</div>
+
+@section Scripts {
+	<script>
+        //Register the service worker.
+        //Note is is still not "installable" without the manifest
+        if (navigator.serviceWorker.controller) {
+            console.log('Active service worker found, no need to register');
+        } else {
+            navigator.serviceWorker.register('sw.js', {
+                scope: './'
+            }).then(function (reg) {
+                console.log('Service worker has been registered for scope:' + reg.scope);
+            });
+        }
+	</script>
+}
