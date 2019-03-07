@@ -1,11 +1,39 @@
-﻿@{
-	ViewBag.Title = "Home Page";
+﻿@model IEnumerable<TitanInformationSolutions.Models.Posts>
+@{
+    ViewBag.Title = "Home Page";
 }
-
 <div class="row">
     <div class="col-md-4">
         <h2>Newsfeed</h2>
-        <ul>   
+
+        <table class="table">
+            <colgroup>
+                <col span="1" />
+                <col width="300" , span="1" />
+                <col span="1" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Post)
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @if (Model != null)
+                {
+                    @foreach (var item in Model)
+                    {  
+                         <tr>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                         </tr> 
+                     }
+                 }
+            </tbody>
+        </table>
+
+        @*<ul>
             <p>Aquatics</p>
             <li>
                 Carole Haines: Bring spare clothes!
@@ -18,13 +46,13 @@
             <li>
                 Jiminy Cricket: Late start today.
             </li>
-        </ul>
-        
+        </ul>*@
+
         @*<h2>Aquatics</h2>
         <p>(02/10/2019) Bring Spare Clothes!</p>
         <p>(01/03/2019) Don't forget to bring an notebook to take notes!</p>
         (maybe add vertial accordian here after 3 posts to expand if they want to see more)
-       
+
         <h2>Child Care</h2>
         <p>(02/08/2019) We are learning how to paint today, so come prepared to make a mess!  </p>
         <p>(02/01/2019) Show and tell!</p>
@@ -34,9 +62,8 @@
         <p>(02/02/2019) Changed to Gym 2 instead</p>*@
     </div>
 </div>
-
 @section Scripts {
-	<script>
+    <script>
         //Register the service worker.
         //Note is is still not "installable" without the manifest
         if (navigator.serviceWorker.controller) {
@@ -48,5 +75,5 @@
                 console.log('Service worker has been registered for scope:' + reg.scope);
             });
         }
-	</script>
+    </script>
 }

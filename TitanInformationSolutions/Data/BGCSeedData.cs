@@ -105,40 +105,40 @@ namespace TitanInformationSolutions.Data
 
 				}
 
-				if (!context.Section.Any())
-				{
-					context.Section.AddRange(
-						new Section
-						{
-							Start = DateTime.Parse("02/13/2019,12:0:0"),
-							End = DateTime.Parse("02/13/2019,14,0,0"),
-							Location = "Burgoyne Woods Swimming Pool",
-							BGCProgramID = context.BGCProgram.FirstOrDefault(d => d.Name == "Aquatics").ID
-						},
-						new Section
-						{
-							Start = DateTime.Parse("02/14/2019,12,0,0"),
-							End = DateTime.Parse("02/14/2019,14,0,0"),
-							Location = "Burgoyne Woods Swimming Pool",
-							BGCProgramID = context.BGCProgram.FirstOrDefault(d => d.Name == "Aquatics").ID
-						},
-						new Section
-						{
-							Start = DateTime.Parse("02/12/2019,9,0,0"),
-							End = DateTime.Parse("02/12/2019,18,0,0"),
-							Location = "St Catharines Centre",
-							BGCProgramID = context.BGCProgram.FirstOrDefault(d => d.Name == "Child Care").ID
-						},
-						new Section
-						{
-							Start = DateTime.Parse("02/13/2019,15,0,0"),
-							End = DateTime.Parse("02/13/2019,16,0,0"),
-							Location = "Lancaster Park",
-							BGCProgramID = context.BGCProgram.FirstOrDefault(d => d.Name == "Soccer").ID
-						});
-					context.SaveChanges();
+				//if (!context.Section.Any())
+				//{
+				//	context.Section.AddRange(
+				//		new Section
+				//		{
+				//			Start = DateTime.Parse("02/13/2019,12:0:0"),
+				//			End = DateTime.Parse("02/13/2019,14:0:0"),
+				//			Location = "Burgoyne Woods Swimming Pool",
+				//			BGCProgramID = context.BGCProgram.FirstOrDefault(d => d.Name == "Aquatics").ID
+				//		},
+				//		new Section
+				//		{
+				//			Start = DateTime.Parse("02/14/2019,12:0:0"),
+				//			End = DateTime.Parse("02/14/2019,14:0:0"),
+				//			Location = "Burgoyne Woods Swimming Pool",
+				//			BGCProgramID = context.BGCProgram.FirstOrDefault(d => d.Name == "Aquatics").ID
+				//		},
+				//		new Section
+				//		{
+				//			Start = DateTime.Parse("02/12/2019,9:0:0"),
+				//			End = DateTime.Parse("02/12/2019,18:0:0"),
+				//			Location = "St Catharines Centre",
+				//			BGCProgramID = context.BGCProgram.FirstOrDefault(d => d.Name == "Child Care").ID
+				//		},
+				//		new Section
+				//		{
+				//			Start = DateTime.Parse("02/13/2019,15:0:0"),
+				//			End = DateTime.Parse("02/13/2019,16:0:0"),
+				//			Location = "Lancaster Park",
+				//			BGCProgramID = context.BGCProgram.FirstOrDefault(d => d.Name == "Soccer").ID
+				//		});
+				//	context.SaveChanges();
 
-				}
+				//}
 
 				if (!context.BGCProgram.Any())
 				{
@@ -163,52 +163,52 @@ namespace TitanInformationSolutions.Data
 
 				}
 
-				if (!context.child_Sections.Any())
-				{
-					context.child_Sections.AddRange(
-						new child_Section
-						{
-							ChildID = context.Child.FirstOrDefault(c => c.firstName == "Elroy").ID,
-							SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Soccer").ID
-						},
-						new child_Section
-						{
-							ChildID = context.Child.FirstOrDefault(c => c.firstName == "Judy").ID,
-							SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Soccer").ID
-						},
-						new child_Section
-						{
-							ChildID = context.Child.FirstOrDefault(c => c.firstName == "Bam-Bam").ID,
-							SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Child Care").ID
-						},
-						new child_Section
-						{
-							ChildID = context.Child.FirstOrDefault(c => c.firstName == "Bart").ID,
-							SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Aquatics").ID
-						}
-						);
-					context.SaveChanges();
-				}
-				if (!context.instructor_Sections.Any())
-				{
-					context.instructor_Sections.AddRange(
-						new instructor_Section
-						{
-							instructorID = context.Instructor.FirstOrDefault(c => c.firstName == "Jiminy").ID,
-							SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Aquatics").ID
-						},
-						new instructor_Section
-						{
-							instructorID = context.Instructor.FirstOrDefault(c => c.firstName == "Robert").ID,
-							SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Child Care").ID
-						},
-						new instructor_Section
-						{
-							instructorID = context.Instructor.FirstOrDefault(c => c.firstName == "Carole").ID,
-							SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Haines").ID
-						});
-					context.SaveChanges();
-				}
+				//if (!context.child_Sections.Any())
+				//{
+				//	context.child_Sections.AddRange(
+				//		new child_Section
+				//		{
+				//			ChildID = context.Child.FirstOrDefault(c => c.firstName == "Elroy").ID,
+				//			SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Soccer").ID
+				//		},
+				//		new child_Section
+				//		{
+				//			ChildID = context.Child.FirstOrDefault(c => c.firstName == "Judy").ID,
+				//			SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Soccer").ID
+				//		},
+				//		new child_Section
+				//		{
+				//			ChildID = context.Child.FirstOrDefault(c => c.firstName == "Bam-Bam").ID,
+				//			SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Child Care").ID
+				//		},
+				//		new child_Section
+				//		{
+				//			ChildID = context.Child.FirstOrDefault(c => c.firstName == "Bart").ID,
+				//			SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Aquatics").ID
+				//		}
+				//		);
+				//	context.SaveChanges();
+				//}
+				//if (!context.instructor_Sections.Any())
+				//{
+				//	context.instructor_Sections.AddRange(
+				//		new instructor_Section
+				//		{
+				//			instructorID = context.Instructor.FirstOrDefault(c => c.firstName == "Jiminy").ID,
+				//			SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Aquatics").ID
+				//		},
+				//		new instructor_Section
+				//		{
+				//			instructorID = context.Instructor.FirstOrDefault(c => c.firstName == "Robert").ID,
+				//			SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Child Care").ID
+				//		},
+				//		new instructor_Section
+				//		{
+				//			instructorID = context.Instructor.FirstOrDefault(c => c.firstName == "Carole").ID,
+				//			SectionID = context.Section.FirstOrDefault(p => p.BGCProgram.Name == "Haines").ID
+				//		});
+				//	context.SaveChanges();
+				//}
 
 				if (!context.Posts.Any())
 				{
