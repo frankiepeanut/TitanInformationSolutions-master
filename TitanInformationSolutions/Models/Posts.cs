@@ -16,6 +16,7 @@ namespace TitanInformationSolutions.Models
         [StringLength(30)]
         public string lastName { get; set; }
 
+        [Display(Name ="Posted By: ")]
         public string FullName
         {
             get

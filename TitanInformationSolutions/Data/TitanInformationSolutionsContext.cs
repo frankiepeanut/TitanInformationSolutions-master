@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using TitanInformationSolutions.Models;
 
@@ -12,6 +13,23 @@ namespace TitanInformationSolutions.Data
         public TitanInformationSolutionsContext (DbContextOptions<TitanInformationSolutionsContext> options)
             : base(options)
         {
+            UserName = "SeedData";
+        }
+
+        //public TitanInformationSolutionsContext(DbContextOptions<TitanInformationSolutionsContext> options, IHttpContextAccessor httpContextAccessor)
+        //    : base(options)
+        //{
+        //    _httpContextAccessor = httpContextAccesor;
+        //    UserName = _httpContextAccessor.HttpContext?.User.Identity.Name;
+        //    UserName = (UserName == null) ? "Unknown" : UserName;
+        //}
+
+        //private readonly IHttpContextAccessor _httpContextAccessor;
+
+
+        public string UserName
+        {
+            get; private set;
         }
 
         public DbSet<TitanInformationSolutions.Models.Child> Child { get; set; }
