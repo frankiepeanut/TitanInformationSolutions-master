@@ -38,10 +38,54 @@
                     <li><a asp-area="" asp-controller="Messages" asp-action="Index">Messenger</a></li>
                     <li><a asp-area="" asp-controller="Posts" asp-action="Index">Posts</a></li>
                     <li><a asp-area="" asp-controller="Settings" asp-action="Index">Settings</a></li>
-                    <li class="divider"></li>
                     <li><a asp-area="" asp-controller="Subscriptions" asp-action="Index">Subscriptions</a></li>
                     <li><a asp-area="" asp-controller="UserRoles" asp-action="Index">User Roles</a></li>
                     <li><a asp-area="Identity" asp-page="/Account/Register">Register User</a></li>
+
+                    @*@if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Instructor"))
+                        {
+
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Menu<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a asp-area="" asp-controller="Profile" asp-action="Index">Profile</a></li>
+                                    <li><a asp-area="" asp-controller="Sections" asp-action="Index">Programs</a></li>
+                                    <li><a asp-area="" asp-controller="Messages" asp-action="Index">Messenger</a></li>
+                                    <li><a asp-area="" asp-controller="Posts" asp-action="Index">Posts</a></li>
+                                    <li><a asp-area="" asp-controller="Settings" asp-action="Index">Settings</a></li>
+                                    <li><a asp-area="" asp-controller="Subscriptions" asp-action="Index">Subscriptions</a></li>
+                                </ul>
+                            </li>
+
+                        }
+                        else if (User.IsInRole("Admin"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Menu<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a asp-area="" asp-controller="Profile" asp-action="Index">Profile</a></li>
+                                    <li><a asp-area="" asp-controller="Sections" asp-action="Index">Programs</a></li>
+                                    <li><a asp-area="" asp-controller="Messages" asp-action="Index">Messenger</a></li>
+                                    <li><a asp-area="" asp-controller="Posts" asp-action="Index">Posts</a></li>
+                                    <li><a asp-area="" asp-controller="Settings" asp-action="Index">Settings</a></li>
+                                    <li><a asp-area="" asp-controller="Subscriptions" asp-action="Index">Subscriptions</a></li>
+                                    <li><a asp-area="" asp-controller="UserRoles" asp-action="Index">User Roles</a></li>
+                                    <li><a asp-area="Identity" asp-page="/Account/Register">Register User</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Profile" asp-action="Index">Profile</a></li>
+                            <li><a asp-area="" asp-controller="Sections" asp-action="Index">Programs</a></li>
+                            <li><a asp-area="" asp-controller="Messages" asp-action="Index">Messenger</a></li>
+                            <li><a asp-area="" asp-controller="Posts" asp-action="Index">Posts</a></li>
+                            <li><a asp-area="" asp-controller="Settings" asp-action="Index">Settings</a></li>
+                            <li><a asp-area="" asp-controller="Subscriptions" asp-action="Index">Subscriptions</a></li>
+                        }
+                    }*@
                 </ul>
                 <partial name="_LoginPartial" />
             </div>

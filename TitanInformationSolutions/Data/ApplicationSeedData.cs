@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using TitanInformationSolutions.Data;
-
 
 namespace TitanInformationSolutions.Data
 {
@@ -15,7 +13,7 @@ namespace TitanInformationSolutions.Data
         {
             //Create Roles
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            string[] roleNames = { "Instructor" };
+            string[] roleNames = { "Instructor", "Admin" };
             IdentityResult roleResult;
             foreach (var roleName in roleNames)
             {
@@ -27,42 +25,27 @@ namespace TitanInformationSolutions.Data
             }
             //Create Users
             var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
-            if (userManager.FindByEmailAsync("jcricket@gmail.com").Result == null)
+            if (userManager.FindByEmailAsync("admin1@outlook.com").Result == null)
             {
                 IdentityUser user = new IdentityUser
                 {
-                    UserName = "jcricket@gmail.com",
-                    Email = "jcricket@gmail.com"
+                    UserName = "admin1@outlook.com",
+                    Email = "admin1@outlook.com"
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "password").Result;
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user, "Instructor").Wait();
+                    userManager.AddToRoleAsync(user, "Admin").Wait();
                 }
             }
-            if (userManager.FindByEmailAsync("caroleh@yahoo.com").Result == null)
+            if (userManager.FindByEmailAsync("instructor1@outlook.com").Result == null)
             {
                 IdentityUser user = new IdentityUser
                 {
-                    UserName = "caroleh@yahoo.com",
-                    Email = "caroleh@yahoo.com"
-                };
-
-                IdentityResult result = userManager.CreateAsync(user, "password").Result;
-
-                if (result.Succeeded)
-                {
-                    userManager.AddToRoleAsync(user, "Instructor").Wait();
-                }
-            }
-            if (userManager.FindByEmailAsync("fripp@hotmail.com").Result == null)
-            {
-                IdentityUser user = new IdentityUser
-                {
-                    UserName = "fripp@hotmail.com",
-                    Email = "fripp@hotmail.com"
+                    UserName = "instructor1@outlook.com",
+                    Email = "instructor1@outlook.com"
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "password").Result;
@@ -80,7 +63,8 @@ namespace TitanInformationSolutions.Data
                     Email = "user1@outlook.com"
                 };
 
-                IdentityResult result = userManager.CreateAsync(user, "password").Result;                
+                IdentityResult result = userManager.CreateAsync(user, "password").Result;
+                //Not in any role
             }
         }
     }

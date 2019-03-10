@@ -112,10 +112,6 @@ namespace TitanInformationSolutions.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
                     b.Property<string>("firstName")
                         .HasMaxLength(30);
 
@@ -218,6 +214,10 @@ namespace TitanInformationSolutions.Data.Migrations
                     b.Property<bool>("privNote");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("email")
+                        .IsUnique()
+                        .HasFilter("[email] IS NOT NULL");
 
                     b.ToTable("Parent");
                 });
