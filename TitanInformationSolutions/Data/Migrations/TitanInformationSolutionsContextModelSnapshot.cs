@@ -15,7 +15,7 @@ namespace TitanInformationSolutions.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -111,6 +111,8 @@ namespace TitanInformationSolutions.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("email");
 
                     b.Property<string>("firstName")
                         .HasMaxLength(30);
@@ -214,10 +216,6 @@ namespace TitanInformationSolutions.Data.Migrations
                     b.Property<bool>("privNote");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("email")
-                        .IsUnique()
-                        .HasFilter("[email] IS NOT NULL");
 
                     b.ToTable("Parent");
                 });
