@@ -21,6 +21,9 @@ namespace TitanInformationSolutions.Models
         [ScaffoldColumn(false)]
         public string desc { get; set; }
 
+        public int SectionID { get; set; }
+
         public virtual ICollection<Section> Sections { get; set; }
+
     }
 }
