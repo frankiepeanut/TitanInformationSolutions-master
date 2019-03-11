@@ -24,18 +24,21 @@ namespace TitanInformationSolutions.Data
 					 new Instructor
 					 {
 						 firstName = "Jiminy",
-						 lastName = "Cricket"
+						 lastName = "Cricket",
+                         email = "jcricket@outlook.com"
 					 },
 
 					 new Instructor
 					 {
 						 firstName = "Carole",
-						 lastName = "Haines"
+						 lastName = "Haines",
+                         email = "chaines@outlook.com"
 					 },
 					 new Instructor
 					 {
 						 firstName = "Robert",
-						 lastName = "Fripp"
+						 lastName = "Fripp",
+                         email = "rfripp@outlook.com"
 					 }
 				);
 					context.SaveChanges();

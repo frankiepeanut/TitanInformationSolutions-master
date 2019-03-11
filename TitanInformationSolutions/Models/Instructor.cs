@@ -31,6 +31,8 @@ namespace TitanInformationSolutions.Models
             }
         }
 
+        public string email { get; set; }
+
         public virtual ICollection<instructor_Section> Instructor_Sections { get; set; }
         public virtual ICollection<instructor_message> Instructor_Messages { get; set; }
     }

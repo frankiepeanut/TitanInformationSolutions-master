@@ -55,7 +55,7 @@ namespace TitanInformationSolutions.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Instructor, Admin")]
+        //[Authorize(Roles = "Instructor, Admin")]
         public async Task<IActionResult> Create([Bind("ID,firstName,lastName,Post")] Posts posts)
         {
             if (ModelState.IsValid)

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using TitanInformationSolutions.Data;
 
 namespace TitanInformationSolutions
@@ -55,6 +56,8 @@ namespace TitanInformationSolutions
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<TitanInformationSolutionsContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("TitanInformationSolutionsContext")));
+
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
   
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

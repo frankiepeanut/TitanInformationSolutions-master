@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TitanInformationSolutions.Models;
 
 namespace TitanInformationSolutions.Data
 {
@@ -12,6 +13,7 @@ namespace TitanInformationSolutions.Data
             : base(options)
         {
         }
+        public DbSet<TitanInformationSolutions.Models.Instructor> Instructor { get; set; }
 
     }
 }
