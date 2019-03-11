@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using TitanInformationSolutions.Data;
 
 namespace TitanInformationSolutions
@@ -26,6 +27,7 @@ namespace TitanInformationSolutions
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -35,15 +37,19 @@ namespace TitanInformationSolutions
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("TitanInformationSolutionsContext")));
+                    Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentity<IdentityUser, IdentityRole>()
-           .AddEntityFrameworkStores<ApplicationDbContext>()
-           .AddDefaultUI()
-           .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
             {
+                // Default Password settings.
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -51,10 +57,48 @@ namespace TitanInformationSolutions
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
             });
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             services.AddDbContext<TitanInformationSolutionsContext>(options =>
-        options.UseSqlServer(Configuration.GetConnectionString("TitanInformationSolutionsContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("TitanInformationSolutionsContext")));
+
+            //To give access to IHttpContextAccessor for Audit Data with IAuditable
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+
+
+
+
+            //    services.Configure<CookiePolicyOptions>(options =>
+            //    {
+            //        This lambda determines whether user consent for non - essential cookies is needed for a given request.
+            //         options.CheckConsentNeeded = context => true;
+            //         options.MinimumSameSitePolicy = SameSiteMode.None;
+            //    });
+
+            //    services.AddDbContext<ApplicationDbContext>(options =>
+            //        options.UseSqlServer(
+            //            Configuration.GetConnectionString("TitanInformationSolutionsContext")));
+
+            //    services.AddIdentity<IdentityUser, IdentityRole>()
+            //   .AddEntityFrameworkStores<ApplicationDbContext>()
+            //   .AddDefaultUI()
+            //   .AddDefaultTokenProviders();
+
+            //    services.Configure<IdentityOptions>(options =>
+            //    {
+            //        options.Password.RequireDigit = false;
+            //        options.Password.RequireLowercase = false;
+            //        options.Password.RequireNonAlphanumeric = false;
+            //        options.Password.RequireUppercase = false;
+            //        options.Password.RequiredLength = 6;
+            //        options.Password.RequiredUniqueChars = 1;
+            //    });
+
+            //    services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //    services.AddDbContext<TitanInformationSolutionsContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("TitanInformationSolutionsContext")));
         }
   
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,12 +107,14 @@ namespace TitanInformationSolutions
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
