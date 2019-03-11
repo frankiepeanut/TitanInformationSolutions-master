@@ -12,8 +12,8 @@ using TitanInformationSolutions.Utilities;
 
 namespace TitanInformationSolutions.Controllers
 {
-    [Authorize]
-    public class EmployeeProfileController : Controller
+    //[Authorize]
+    public class InstructorProfileController : Controller
     {
         private readonly TitanInformationSolutionsContext _context;
 
@@ -32,15 +32,15 @@ namespace TitanInformationSolutions.Controllers
         public async Task<IActionResult> Details()
         {
 
-            var employee = await _context.Instructor
+            var instructor = await _context.Instructor
                 .Where(c => c.email == User.Identity.Name)
                 .FirstOrDefaultAsync();
-            if (employee == null)
+            if (instructor == null)
             {
                 return RedirectToAction(nameof(Create));
             }
 
-            return View(employee);
+            return View(instructor);
         }
 
         // GET: EmployeeProfile/Create
@@ -55,16 +55,16 @@ namespace TitanInformationSolutions.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Phone,eMail")] Employee employee)
+        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,email")] Instructor instructor)
         {
-            employee.eMail = User.Identity.Name;
+            instructor.email = User.Identity.Name;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _context.Add(employee);
+                    _context.Add(instructor);
                     await _context.SaveChangesAsync();
-                    UpdateUserNameCookie(employee.FullName);
+                    UpdateUserNameCookie(instructor.FullName);
                     return RedirectToAction(nameof(Details));
                 }
             }
@@ -73,7 +73,7 @@ namespace TitanInformationSolutions.Controllers
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
 
-            return View(employee);
+            return View(instructor);
         }
 
         // GET: EmployeeProfile/Edit/5
@@ -84,14 +84,14 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .Where(c => c.eMail == User.Identity.Name)
+            var instructor = await _context.Instructor
+                .Where(c => c.email == User.Identity.Name)
                 .FirstOrDefaultAsync();
-            if (employee == null)
+            if (instructor == null)
             {
                 return NotFound();
             }
-            return View(employee);
+            return View(instructor);
         }
 
         // POST: EmployeeProfile/Edit/5
@@ -101,24 +101,24 @@ namespace TitanInformationSolutions.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
         {
-            var employeeToUpdate = await _context.Employees
+            var instructorToUpdate = await _context.Instructor
                 .FirstOrDefaultAsync(m => m.ID == id);
 
-            if (await TryUpdateModelAsync<Employee>(employeeToUpdate, "",
-                c => c.FirstName, c => c.LastName, c => c.Phone))
+            if (await TryUpdateModelAsync<Instructor>(instructorToUpdate, "",
+                c => c.firstName, c => c.lastName))
             {
                 try
                 {
                     //Put the original RowVersion value in the OriginalValues collection for the entity
-                    _context.Entry(employeeToUpdate).Property("RowVersion").OriginalValue = RowVersion;
-                    _context.Update(employeeToUpdate);
+                    _context.Entry(instructorToUpdate).Property("RowVersion").OriginalValue = RowVersion;
+                    _context.Update(instructorToUpdate);
                     await _context.SaveChangesAsync();
-                    UpdateUserNameCookie(employeeToUpdate.FullName);
+                    UpdateUserNameCookie(instructorToUpdate.FullName);
                     return RedirectToAction(nameof(Details));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employeeToUpdate.ID))
+                    if (!InstructorExists(instructorToUpdate.ID))
                     {
                         return NotFound();
                     }
@@ -129,7 +129,7 @@ namespace TitanInformationSolutions.Controllers
                     }
                 }
             }
-            return View(employeeToUpdate);
+            return View(instructorToUpdate);
         }
 
         private void UpdateUserNameCookie(string userName)
@@ -137,10 +137,11 @@ namespace TitanInformationSolutions.Controllers
             CookieHelper.CookieSet(HttpContext, "userName", userName, 960);
         }
 
-        private bool EmployeeExists(int id)
+        private bool InstructorExists(int id)
         {
-            return _context.Employees.Any(e => e.ID == id);
+            return _context.Instructor.Any(e => e.ID == id);
         }
-    }
+    
+}
 
 }

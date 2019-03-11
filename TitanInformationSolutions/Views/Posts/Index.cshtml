@@ -30,6 +30,11 @@
                 @Html.DisplayFor(modelItem => item.Post)
             </td>
             <td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <p>pasdad</p>
+
+                }
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
