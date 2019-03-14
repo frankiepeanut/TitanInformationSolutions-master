@@ -10,8 +10,8 @@ using TitanInformationSolutions.Data;
 namespace TitanInformationSolutions.Migrations
 {
     [DbContext(typeof(TitanInformationSolutionsContext))]
-    [Migration("20190314165305_initial3")]
-    partial class initial3
+    [Migration("20190314174005_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

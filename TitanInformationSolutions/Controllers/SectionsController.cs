@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -58,7 +57,6 @@ namespace TitanInformationSolutions.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Instructor, Admin")]
         public async Task<IActionResult> Create([Bind("ID,Location,BGCProgramID")] Section section)
         {
             if (ModelState.IsValid)
@@ -93,7 +91,6 @@ namespace TitanInformationSolutions.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Instructor, Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Location,BGCProgramID")] Section section)
         {
             if (id != section.ID)
@@ -147,7 +144,6 @@ namespace TitanInformationSolutions.Controllers
         // POST: Sections/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Instructor, Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var section = await _context.Sections.FindAsync(id);

@@ -131,40 +131,40 @@ namespace TitanInformationSolutions.Data
 
                 }
 
-                if (!context.Sections.Any())
-				{
+               // if (!context.Sections.Any())
+				//{
 					context.Sections.AddRange(
 						new Section
 						{
 							Start = DateTime.Parse("02/13/2019,12:0:0"),
-							End = DateTime.Parse("02/13/2019,14,0,0"),
+							End = DateTime.Parse("02/13/2019,14:0:0"),
 							Location = "Burgoyne Woods Swimming Pool",
 							//BGCProgramID = context.BGCPrograms.FirstOrDefault(d => d.Name == "Aquatics").ID
 						},
 						new Section
 						{
-							Start = DateTime.Parse("02/14/2019,12,0,0"),
-							End = DateTime.Parse("02/14/2019,14,0,0"),
+							Start = DateTime.Parse("02/14/2019,12:0:0"),
+							End = DateTime.Parse("02/14/2019,14:0:0"),
 							Location = "Burgoyne Woods Swimming Pool",
 							//BGCProgramID = context.BGCPrograms.FirstOrDefault(d => d.Name == "Aquatics").ID
 						},
 						new Section
 						{
-							Start = DateTime.Parse("02/12/2019,9,0,0"),
-							End = DateTime.Parse("02/12/2019,18,0,0"),
+							Start = DateTime.Parse("02/12/2019,9:0:0"),
+							End = DateTime.Parse("02/12/2019,18:0:0"),
 							Location = "St Catharines Centre",
 							//BGCProgramID = context.BGCPrograms.FirstOrDefault(d => d.Name == "Child Care").ID
 						},
 						new Section
 						{
-							Start = DateTime.Parse("02/13/2019,15,0,0"),
-							End = DateTime.Parse("02/13/2019,16,0,0"),
+							Start = DateTime.Parse("02/13/2019,15:0:0"),
+							End = DateTime.Parse("02/13/2019,16:0:0"),
 							Location = "Lancaster Park",
 							BGCProgramID = context.BGCPrograms.FirstOrDefault(d => d.Name == "Soccer").ID
 						});
 					context.SaveChanges();
 
-				}		
+				//}		
 
 				if (!context.child_Sections.Any())
 				{

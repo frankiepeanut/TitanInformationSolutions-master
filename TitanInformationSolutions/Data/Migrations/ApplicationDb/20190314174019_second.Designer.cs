@@ -10,7 +10,7 @@ using TitanInformationSolutions.Data;
 namespace TitanInformationSolutions.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190314164249_second")]
+    [Migration("20190314174019_second")]
     partial class second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

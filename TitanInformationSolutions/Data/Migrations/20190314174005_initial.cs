@@ -15,8 +15,7 @@ namespace TitanInformationSolutions.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 100, nullable: true),
-                    desc = table.Column<string>(nullable: true),
-                    SectionID = table.Column<int>(nullable: false)
+                    desc = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -1,70 +1,41 @@
-﻿@*@model IEnumerable<TitanInformationSolutions.Models.BGCProgram>*@
-@{
-    ViewData["Title"] = "Home Page";
-}
-<form asp action="index">
-    <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
-    <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
-    <div class="form-horizontal">
-        <h2>Programs </h2>
-        <button class="btn" type="button" data-toggle="collapse" id="filterToggle" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
-            Filter/Search
-        </button>
-        <div class="collapse @(ViewData["Filtering"]) well" id="collapseFilter">
-            <div class="row">
-                <div class="form-group">
-                    <label class="control-label col-md-5">Search Criteria:</label>
-                    <div class="col-md-5">
-                        @Html.TextBox("SearchString", null, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="control-label col-md-5">Activity Category:</label>
-                        <select name="Choose an activity">
-                            @*@foreach (var item in Model)
-        {
-            <option>@Html.DisplayFor(modelItem => item.Name)</option>
-        }*@
-                            <option>Child Care</option>
-                            <option>Aquatics</option>
-                            <option>Soccer</option>
-                            <option>Track And Field</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-5">Duration:</label>
-                        <input type="datetime-local">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-5">Instructor:</label>
-                        @*<select name="Choose an instructor">
-                                <option>Mike</option>
-                                <option>Clark</option>
-                                <option>Lesley</option>
-                            </select>*@
+﻿@model IEnumerable<TitanInformationSolutions.Models.Section>
 
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-4"> </label>
-                        <div class="col-md-8">
-                            <input type="submit" name="actionButton" value="Filter" class="btn btn-primary" />
-                            <a asp-action="Index"
-                               asp-route-sortDirection="@ViewData["sortDirection"]"
-                               asp-route-sortField="@ViewData["sortField"]">Clear</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Day</th>
-                    <th>Time</th>
-                    <th>Location</th>
-                </tr>
-            </thead>
-        </table>
-</form>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BGCProgram)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BGCProgram.ID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
