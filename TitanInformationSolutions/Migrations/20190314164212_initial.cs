@@ -2,43 +2,44 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TitanInformationSolutions.Migrations.ApplicationDb
+namespace TitanInformationSolutions.Migrations
 {
-    public partial class test : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "BGCProgram",
+                name: "BGCPrograms",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 100, nullable: true),
-                    desc = table.Column<string>(nullable: true)
+                    desc = table.Column<string>(nullable: true),
+                    SectionID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BGCProgram", x => x.ID);
+                    table.PrimaryKey("PK_BGCPrograms", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Instructor",
+                name: "Instructors",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     firstName = table.Column<string>(maxLength: 30, nullable: true),
                     lastName = table.Column<string>(maxLength: 30, nullable: true),
-                    email = table.Column<string>(nullable: true)
+                    email = table.Column<string>(maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Instructor", x => x.ID);
+                    table.PrimaryKey("PK_Instructors", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Message",
+                name: "Messages",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -49,11 +50,11 @@ namespace TitanInformationSolutions.Migrations.ApplicationDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Message", x => x.ID);
+                    table.PrimaryKey("PK_Messages", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Parent",
+                name: "Parents",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -67,11 +68,27 @@ namespace TitanInformationSolutions.Migrations.ApplicationDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Parent", x => x.ID);
+                    table.PrimaryKey("PK_Parents", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Section",
+                name: "Posts",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    firstName = table.Column<string>(maxLength: 30, nullable: true),
+                    lastName = table.Column<string>(maxLength: 30, nullable: true),
+                    Post = table.Column<string>(nullable: true),
+                    ParentID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sections",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -83,17 +100,17 @@ namespace TitanInformationSolutions.Migrations.ApplicationDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Section", x => x.ID);
+                    table.PrimaryKey("PK_Sections", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Section_BGCProgram_BGCProgramID",
+                        name: "FK_Sections_BGCPrograms_BGCProgramID",
                         column: x => x.BGCProgramID,
-                        principalTable: "BGCProgram",
+                        principalTable: "BGCPrograms",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "instructor_message",
+                name: "Instructor_Messages",
                 columns: table => new
                 {
                     CreatedOn = table.Column<DateTime>(nullable: true),
@@ -108,23 +125,23 @@ namespace TitanInformationSolutions.Migrations.ApplicationDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_instructor_message", x => x.ID);
+                    table.PrimaryKey("PK_Instructor_Messages", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_instructor_message_Instructor_instructorID",
+                        name: "FK_Instructor_Messages_Instructors_instructorID",
                         column: x => x.instructorID,
-                        principalTable: "Instructor",
+                        principalTable: "Instructors",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_instructor_message_Message_messageID",
+                        name: "FK_Instructor_Messages_Messages_messageID",
                         column: x => x.messageID,
-                        principalTable: "Message",
+                        principalTable: "Messages",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Child",
+                name: "Children",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -136,17 +153,17 @@ namespace TitanInformationSolutions.Migrations.ApplicationDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Child", x => x.ID);
+                    table.PrimaryKey("PK_Children", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Child_Parent_ParentID",
+                        name: "FK_Children_Parents_ParentID",
                         column: x => x.ParentID,
-                        principalTable: "Parent",
+                        principalTable: "Parents",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Parent_Message",
+                name: "Parent_Messages",
                 columns: table => new
                 {
                     CreatedOn = table.Column<DateTime>(nullable: true),
@@ -161,23 +178,23 @@ namespace TitanInformationSolutions.Migrations.ApplicationDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Parent_Message", x => x.ID);
+                    table.PrimaryKey("PK_Parent_Messages", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Parent_Message_Message_messageID",
+                        name: "FK_Parent_Messages_Messages_messageID",
                         column: x => x.messageID,
-                        principalTable: "Message",
+                        principalTable: "Messages",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Parent_Message_Parent_parentID",
+                        name: "FK_Parent_Messages_Parents_parentID",
                         column: x => x.parentID,
-                        principalTable: "Parent",
+                        principalTable: "Parents",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sub",
+                name: "Subs",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -190,17 +207,17 @@ namespace TitanInformationSolutions.Migrations.ApplicationDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sub", x => x.ID);
+                    table.PrimaryKey("PK_Subs", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Sub_Parent_ParentID",
+                        name: "FK_Subs_Parents_ParentID",
                         column: x => x.ParentID,
-                        principalTable: "Parent",
+                        principalTable: "Parents",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "instructor_Section",
+                name: "instructor_Sections",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -210,23 +227,23 @@ namespace TitanInformationSolutions.Migrations.ApplicationDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_instructor_Section", x => x.ID);
+                    table.PrimaryKey("PK_instructor_Sections", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_instructor_Section_Section_SectionID",
+                        name: "FK_instructor_Sections_Sections_SectionID",
                         column: x => x.SectionID,
-                        principalTable: "Section",
+                        principalTable: "Sections",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_instructor_Section_Instructor_instructorID",
+                        name: "FK_instructor_Sections_Instructors_instructorID",
                         column: x => x.instructorID,
-                        principalTable: "Instructor",
+                        principalTable: "Instructors",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "child_Section",
+                name: "child_Sections",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -237,122 +254,125 @@ namespace TitanInformationSolutions.Migrations.ApplicationDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_child_Section", x => x.ID);
+                    table.PrimaryKey("PK_child_Sections", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_child_Section_Child_ChildID",
+                        name: "FK_child_Sections_Children_ChildID",
                         column: x => x.ChildID,
-                        principalTable: "Child",
+                        principalTable: "Children",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_child_Section_Parent_ParentID",
+                        name: "FK_child_Sections_Parents_ParentID",
                         column: x => x.ParentID,
-                        principalTable: "Parent",
+                        principalTable: "Parents",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_child_Section_Section_SectionID",
+                        name: "FK_child_Sections_Sections_SectionID",
                         column: x => x.SectionID,
-                        principalTable: "Section",
+                        principalTable: "Sections",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Child_ParentID",
-                table: "Child",
-                column: "ParentID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_child_Section_ChildID",
-                table: "child_Section",
+                name: "IX_child_Sections_ChildID",
+                table: "child_Sections",
                 column: "ChildID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_child_Section_ParentID",
-                table: "child_Section",
+                name: "IX_child_Sections_ParentID",
+                table: "child_Sections",
                 column: "ParentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_child_Section_SectionID",
-                table: "child_Section",
+                name: "IX_child_Sections_SectionID",
+                table: "child_Sections",
                 column: "SectionID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_instructor_message_instructorID",
-                table: "instructor_message",
+                name: "IX_Children_ParentID",
+                table: "Children",
+                column: "ParentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Instructor_Messages_instructorID",
+                table: "Instructor_Messages",
                 column: "instructorID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_instructor_message_messageID",
-                table: "instructor_message",
+                name: "IX_Instructor_Messages_messageID",
+                table: "Instructor_Messages",
                 column: "messageID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_instructor_Section_SectionID",
-                table: "instructor_Section",
+                name: "IX_instructor_Sections_SectionID",
+                table: "instructor_Sections",
                 column: "SectionID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_instructor_Section_instructorID",
-                table: "instructor_Section",
+                name: "IX_instructor_Sections_instructorID",
+                table: "instructor_Sections",
                 column: "instructorID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Parent_Message_messageID",
-                table: "Parent_Message",
+                name: "IX_Parent_Messages_messageID",
+                table: "Parent_Messages",
                 column: "messageID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Parent_Message_parentID",
-                table: "Parent_Message",
+                name: "IX_Parent_Messages_parentID",
+                table: "Parent_Messages",
                 column: "parentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Section_BGCProgramID",
-                table: "Section",
+                name: "IX_Sections_BGCProgramID",
+                table: "Sections",
                 column: "BGCProgramID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sub_ParentID",
-                table: "Sub",
+                name: "IX_Subs_ParentID",
+                table: "Subs",
                 column: "ParentID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "child_Section");
+                name: "child_Sections");
 
             migrationBuilder.DropTable(
-                name: "instructor_message");
+                name: "Instructor_Messages");
 
             migrationBuilder.DropTable(
-                name: "instructor_Section");
+                name: "instructor_Sections");
 
             migrationBuilder.DropTable(
-                name: "Parent_Message");
+                name: "Parent_Messages");
 
             migrationBuilder.DropTable(
-                name: "Sub");
+                name: "Posts");
 
             migrationBuilder.DropTable(
-                name: "Child");
+                name: "Subs");
 
             migrationBuilder.DropTable(
-                name: "Section");
+                name: "Children");
 
             migrationBuilder.DropTable(
-                name: "Instructor");
+                name: "Sections");
 
             migrationBuilder.DropTable(
-                name: "Message");
+                name: "Instructors");
 
             migrationBuilder.DropTable(
-                name: "Parent");
+                name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "BGCProgram");
+                name: "Parents");
+
+            migrationBuilder.DropTable(
+                name: "BGCPrograms");
         }
     }
 }

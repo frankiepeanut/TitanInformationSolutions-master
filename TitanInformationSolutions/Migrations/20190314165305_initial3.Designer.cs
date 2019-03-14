@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TitanInformationSolutions.Data;
 
-namespace TitanInformationSolutions.Data.Migrations
+namespace TitanInformationSolutions.Migrations
 {
     [DbContext(typeof(TitanInformationSolutionsContext))]
-    [Migration("20190208010128_DesignUpdates")]
-    partial class DesignUpdates
+    [Migration("20190314165305_initial3")]
+    partial class initial3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -29,27 +29,6 @@ namespace TitanInformationSolutions.Data.Migrations
 
                     b.Property<string>("Name")
                         .HasMaxLength(100);
-
-                    b.Property<string>("desc");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("BGCProgram");
-                });
-
-            modelBuilder.Entity("TitanInformationSolutions.Models.BGCPrograms", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("End");
-
-                    b.Property<string>("Location");
-
-                    b.Property<string>("Name");
-
-                    b.Property<DateTime>("Start");
 
                     b.Property<string>("desc");
 
@@ -78,7 +57,7 @@ namespace TitanInformationSolutions.Data.Migrations
 
                     b.HasIndex("ParentID");
 
-                    b.ToTable("Child");
+                    b.ToTable("Children");
                 });
 
             modelBuilder.Entity("TitanInformationSolutions.Models.child_Section", b =>
@@ -86,8 +65,6 @@ namespace TitanInformationSolutions.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BGCProgramsID");
 
                     b.Property<int>("ChildID");
 
@@ -97,15 +74,13 @@ namespace TitanInformationSolutions.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("BGCProgramsID");
-
                     b.HasIndex("ChildID");
 
                     b.HasIndex("ParentID");
 
                     b.HasIndex("SectionID");
 
-                    b.ToTable("Child_Program");
+                    b.ToTable("child_Sections");
                 });
 
             modelBuilder.Entity("TitanInformationSolutions.Models.Instructor", b =>
@@ -113,6 +88,9 @@ namespace TitanInformationSolutions.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("email")
+                        .HasMaxLength(30);
 
                     b.Property<string>("firstName")
                         .HasMaxLength(30);
@@ -122,7 +100,7 @@ namespace TitanInformationSolutions.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Instructor");
+                    b.ToTable("Instructors");
                 });
 
             modelBuilder.Entity("TitanInformationSolutions.Models.instructor_message", b =>
@@ -155,7 +133,7 @@ namespace TitanInformationSolutions.Data.Migrations
 
                     b.HasIndex("messageID");
 
-                    b.ToTable("Instructor_Message");
+                    b.ToTable("Instructor_Messages");
                 });
 
             modelBuilder.Entity("TitanInformationSolutions.Models.instructor_Section", b =>
@@ -174,26 +152,7 @@ namespace TitanInformationSolutions.Data.Migrations
 
                     b.HasIndex("instructorID");
 
-                    b.ToTable("Instructor_Program");
-                });
-
-            modelBuilder.Entity("TitanInformationSolutions.Models.InstructorPost", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Post");
-
-                    b.Property<string>("firstName")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("lastName")
-                        .HasMaxLength(30);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("InstructorPost");
+                    b.ToTable("instructor_Sections");
                 });
 
             modelBuilder.Entity("TitanInformationSolutions.Models.Message", b =>
@@ -210,7 +169,7 @@ namespace TitanInformationSolutions.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Message");
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("TitanInformationSolutions.Models.Parent", b =>
@@ -236,7 +195,7 @@ namespace TitanInformationSolutions.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Parent");
+                    b.ToTable("Parents");
                 });
 
             modelBuilder.Entity("TitanInformationSolutions.Models.Parent_Message", b =>
@@ -269,7 +228,28 @@ namespace TitanInformationSolutions.Data.Migrations
 
                     b.HasIndex("parentID");
 
-                    b.ToTable("Parent_Message");
+                    b.ToTable("Parent_Messages");
+                });
+
+            modelBuilder.Entity("TitanInformationSolutions.Models.Posts", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ParentID");
+
+                    b.Property<string>("Post");
+
+                    b.Property<string>("firstName")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("lastName")
+                        .HasMaxLength(30);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("TitanInformationSolutions.Models.Section", b =>
@@ -290,7 +270,34 @@ namespace TitanInformationSolutions.Data.Migrations
 
                     b.HasIndex("BGCProgramID");
 
-                    b.ToTable("Section");
+                    b.ToTable("Sections");
+                });
+
+            modelBuilder.Entity("TitanInformationSolutions.Models.Sub", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(127);
+
+                    b.Property<int>("ParentID");
+
+                    b.Property<string>("PushAuth")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("PushEndpoint")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("PushP256DH")
+                        .HasMaxLength(512);
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ParentID");
+
+                    b.ToTable("Subs");
                 });
 
             modelBuilder.Entity("TitanInformationSolutions.Models.Child", b =>
@@ -303,10 +310,6 @@ namespace TitanInformationSolutions.Data.Migrations
 
             modelBuilder.Entity("TitanInformationSolutions.Models.child_Section", b =>
                 {
-                    b.HasOne("TitanInformationSolutions.Models.BGCPrograms")
-                        .WithMany("Child_Programs")
-                        .HasForeignKey("BGCProgramsID");
-
                     b.HasOne("TitanInformationSolutions.Models.Child", "child")
                         .WithMany("ChildSections")
                         .HasForeignKey("ChildID")
@@ -366,6 +369,14 @@ namespace TitanInformationSolutions.Data.Migrations
                     b.HasOne("TitanInformationSolutions.Models.BGCProgram", "BGCProgram")
                         .WithMany("Sections")
                         .HasForeignKey("BGCProgramID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TitanInformationSolutions.Models.Sub", b =>
+                {
+                    b.HasOne("TitanInformationSolutions.Models.Parent", "Parent")
+                        .WithMany("Subs")
+                        .HasForeignKey("ParentID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

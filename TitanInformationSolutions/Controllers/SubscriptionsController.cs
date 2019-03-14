@@ -96,7 +96,7 @@ namespace TitanInformationSolutions.Controllers
 
 		private SelectList ParentSelectList(int? id)
 		{
-			var dQuery = from d in _context.Parent
+			var dQuery = from d in _context.Parents
 						 orderby d.lastName, d.firstName
 						 select d;
 			return new SelectList(dQuery, "ID", "FormalName", id);

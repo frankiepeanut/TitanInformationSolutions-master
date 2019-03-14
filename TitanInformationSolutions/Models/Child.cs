@@ -17,10 +17,10 @@ namespace TitanInformationSolutions.Models
         public int ID { get; set; }
 
         [StringLength(30)]
-        public string firstName { get; set; }
+        public String firstName { get; set; }
 
         [StringLength(30)]
-        public string lastName { get; set; }
+        public String lastName { get; set; }
 
         public DateTime DoB { get; set; }
         public TimeSpan age { get { return DateTime.Today - DoB; } }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,6 @@ using TitanInformationSolutions.Models;
 
 namespace TitanInformationSolutions.Controllers
 {
-    [Authorize]
     public class InstructorsController : Controller
     {
         private readonly TitanInformationSolutionsContext _context;
@@ -24,7 +22,7 @@ namespace TitanInformationSolutions.Controllers
         // GET: Instructors
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Instructor.ToListAsync());
+            return View(await _context.Instructors.ToListAsync());
         }
 
         // GET: Instructors/Details/5
@@ -35,7 +33,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var instructor = await _context.Instructor
+            var instructor = await _context.Instructors
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (instructor == null)
             {
@@ -56,7 +54,7 @@ namespace TitanInformationSolutions.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,firstName,lastName")] Instructor instructor)
+        public async Task<IActionResult> Create([Bind("ID,firstName,lastName,email")] Instructor instructor)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +73,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var instructor = await _context.Instructor.FindAsync(id);
+            var instructor = await _context.Instructors.FindAsync(id);
             if (instructor == null)
             {
                 return NotFound();
@@ -88,7 +86,7 @@ namespace TitanInformationSolutions.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,firstName,lastName")] Instructor instructor)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,firstName,lastName,email")] Instructor instructor)
         {
             if (id != instructor.ID)
             {
@@ -126,7 +124,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var instructor = await _context.Instructor
+            var instructor = await _context.Instructors
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (instructor == null)
             {
@@ -141,15 +139,15 @@ namespace TitanInformationSolutions.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var instructor = await _context.Instructor.FindAsync(id);
-            _context.Instructor.Remove(instructor);
+            var instructor = await _context.Instructors.FindAsync(id);
+            _context.Instructors.Remove(instructor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool InstructorExists(int id)
         {
-            return _context.Instructor.Any(e => e.ID == id);
+            return _context.Instructors.Any(e => e.ID == id);
         }
     }
 }

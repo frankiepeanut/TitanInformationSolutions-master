@@ -22,7 +22,7 @@ namespace TitanInformationSolutions.Controllers
         // GET: BGCPrograms
         public async Task<IActionResult> Index()
         {
-            return View(await _context.BGCProgram.ToListAsync());
+            return View(await _context.BGCPrograms.ToListAsync());
         }
 
         // GET: BGCPrograms/Details/5
@@ -33,7 +33,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var bGCProgram = await _context.BGCProgram
+            var bGCProgram = await _context.BGCPrograms
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (bGCProgram == null)
             {
@@ -73,7 +73,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var bGCProgram = await _context.BGCProgram.FindAsync(id);
+            var bGCProgram = await _context.BGCPrograms.FindAsync(id);
             if (bGCProgram == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var bGCProgram = await _context.BGCProgram
+            var bGCProgram = await _context.BGCPrograms
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (bGCProgram == null)
             {
@@ -139,15 +139,15 @@ namespace TitanInformationSolutions.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var bGCProgram = await _context.BGCProgram.FindAsync(id);
-            _context.BGCProgram.Remove(bGCProgram);
+            var bGCProgram = await _context.BGCPrograms.FindAsync(id);
+            _context.BGCPrograms.Remove(bGCProgram);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BGCProgramExists(int id)
         {
-            return _context.BGCProgram.Any(e => e.ID == id);
+            return _context.BGCPrograms.Any(e => e.ID == id);
         }
     }
 }

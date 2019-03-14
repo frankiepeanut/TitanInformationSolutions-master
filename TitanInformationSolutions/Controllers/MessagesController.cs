@@ -22,7 +22,7 @@ namespace TitanInformationSolutions.Controllers
         // GET: Messages
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Message.ToListAsync());
+            return View(await _context.Messages.ToListAsync());
         }
 
         // GET: Messages/Details/5
@@ -33,7 +33,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var message = await _context.Message
+            var message = await _context.Messages
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (message == null)
             {
@@ -73,7 +73,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var message = await _context.Message.FindAsync(id);
+            var message = await _context.Messages.FindAsync(id);
             if (message == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var message = await _context.Message
+            var message = await _context.Messages
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (message == null)
             {
@@ -139,15 +139,15 @@ namespace TitanInformationSolutions.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var message = await _context.Message.FindAsync(id);
-            _context.Message.Remove(message);
+            var message = await _context.Messages.FindAsync(id);
+            _context.Messages.Remove(message);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MessageExists(int id)
         {
-            return _context.Message.Any(e => e.ID == id);
+            return _context.Messages.Any(e => e.ID == id);
         }
     }
 }

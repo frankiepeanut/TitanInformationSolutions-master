@@ -13,7 +13,8 @@ namespace TitanInformationSolutions.Data
             : base(options)
         {
         }
-        public DbSet<TitanInformationSolutions.Models.Instructor> Instructor { get; set; }
+
+        //public DbSet<Instructor> Instructors { get; set; }
 
     }
 }

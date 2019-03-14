@@ -32,7 +32,7 @@ namespace TitanInformationSolutions.Controllers
         public async Task<IActionResult> Details()
         {
 
-            var instructor = await _context.Instructor
+            var instructor = await _context.Instructors
                 .Where(c => c.email == User.Identity.Name)
                 .FirstOrDefaultAsync();
             if (instructor == null)
@@ -84,7 +84,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var instructor = await _context.Instructor
+            var instructor = await _context.Instructors
                 .Where(c => c.email == User.Identity.Name)
                 .FirstOrDefaultAsync();
             if (instructor == null)
@@ -101,7 +101,7 @@ namespace TitanInformationSolutions.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Byte[] RowVersion)
         {
-            var instructorToUpdate = await _context.Instructor
+            var instructorToUpdate = await _context.Instructors
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (await TryUpdateModelAsync<Instructor>(instructorToUpdate, "",
@@ -139,7 +139,7 @@ namespace TitanInformationSolutions.Controllers
 
         private bool InstructorExists(int id)
         {
-            return _context.Instructor.Any(e => e.ID == id);
+            return _context.Instructors.Any(e => e.ID == id);
         }
     
 }

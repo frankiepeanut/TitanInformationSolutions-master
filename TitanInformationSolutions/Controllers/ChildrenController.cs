@@ -29,7 +29,7 @@ namespace TitanInformationSolutions.Controllers
         // GET: Children
         public async Task<IActionResult> Index()
         {
-            var TitanInformationSolutionsContext = _context.Child
+            var TitanInformationSolutionsContext = _context.Children
                 .Include(p => p.Parent)
                 .Include(p => p.ChildSections).ThenInclude(pc => pc.Section);
             return View(await TitanInformationSolutionsContext.ToListAsync());
@@ -46,7 +46,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var child = await _context.Child
+            var child = await _context.Children
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (child == null)
             {
@@ -86,7 +86,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var child = await _context.Child.FindAsync(id);
+            var child = await _context.Children.FindAsync(id);
             if (child == null)
             {
                 return NotFound();
@@ -137,7 +137,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var child = await _context.Child
+            var child = await _context.Children
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (child == null)
             {
@@ -152,15 +152,15 @@ namespace TitanInformationSolutions.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var child = await _context.Child.FindAsync(id);
-            _context.Child.Remove(child);
+            var child = await _context.Children.FindAsync(id);
+            _context.Children.Remove(child);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ChildExists(int id)
         {
-            return _context.Child.Any(e => e.ID == id);
+            return _context.Children.Any(e => e.ID == id);
         }
     }
 }

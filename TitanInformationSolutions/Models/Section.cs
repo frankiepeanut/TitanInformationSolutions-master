@@ -51,10 +51,10 @@ namespace TitanInformationSolutions.Models
         public virtual ICollection<child_Section> ChildSections { get; set; }
 
         public virtual ICollection<instructor_Section> InstructorSections { get; set; }
-public int BGCProgramID { get; set; }
+
+        public int BGCProgramID { get; set; }
 
         [Display(Name = "Program")]
-
         public virtual BGCProgram BGCProgram { get; set; }
     }
 }

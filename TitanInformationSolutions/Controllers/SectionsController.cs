@@ -23,7 +23,7 @@ namespace TitanInformationSolutions.Controllers
         // GET: Sections
         public async Task<IActionResult> Index()
         {
-            var titanInformationSolutionsContext = _context.Section.Include(s => s.BGCProgram);
+            var titanInformationSolutionsContext = _context.Sections.Include(s => s.BGCProgram);
             return View(await titanInformationSolutionsContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var section = await _context.Section
+            var section = await _context.Sections
                 .Include(s => s.BGCProgram)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (section == null)
@@ -49,7 +49,7 @@ namespace TitanInformationSolutions.Controllers
         // GET: Sections/Create
         public IActionResult Create()
         {
-            ViewData["BGCProgramID"] = new SelectList(_context.BGCProgram, "ID", "ID");
+            ViewData["BGCProgramID"] = new SelectList(_context.BGCPrograms, "ID", "ID");
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace TitanInformationSolutions.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BGCProgramID"] = new SelectList(_context.BGCProgram, "ID", "ID", section.BGCProgramID);
+            ViewData["BGCProgramID"] = new SelectList(_context.BGCPrograms, "ID", "ID", section.BGCProgramID);
             return View(section);
         }
 
@@ -79,12 +79,12 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var section = await _context.Section.FindAsync(id);
+            var section = await _context.Sections.FindAsync(id);
             if (section == null)
             {
                 return NotFound();
             }
-            ViewData["BGCProgramID"] = new SelectList(_context.BGCProgram, "ID", "ID", section.BGCProgramID);
+            ViewData["BGCProgramID"] = new SelectList(_context.BGCPrograms, "ID", "ID", section.BGCProgramID);
             return View(section);
         }
 
@@ -121,7 +121,7 @@ namespace TitanInformationSolutions.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BGCProgramID"] = new SelectList(_context.BGCProgram, "ID", "ID", section.BGCProgramID);
+            ViewData["BGCProgramID"] = new SelectList(_context.BGCPrograms, "ID", "ID", section.BGCProgramID);
             return View(section);
         }
 
@@ -133,7 +133,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var section = await _context.Section
+            var section = await _context.Sections
                 .Include(s => s.BGCProgram)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (section == null)
@@ -150,15 +150,15 @@ namespace TitanInformationSolutions.Controllers
         //[Authorize(Roles = "Instructor, Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var section = await _context.Section.FindAsync(id);
-            _context.Section.Remove(section);
+            var section = await _context.Sections.FindAsync(id);
+            _context.Sections.Remove(section);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SectionExists(int id)
         {
-            return _context.Section.Any(e => e.ID == id);
+            return _context.Sections.Any(e => e.ID == id);
         }
     }
 }

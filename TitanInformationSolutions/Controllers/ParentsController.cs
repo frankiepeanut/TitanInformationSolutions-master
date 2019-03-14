@@ -22,7 +22,7 @@ namespace TitanInformationSolutions.Controllers
         // GET: Parents
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Parent.ToListAsync());
+            return View(await _context.Parents.ToListAsync());
         }
 
         // GET: Parents/Details/5
@@ -33,7 +33,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var parent = await _context.Parent
+            var parent = await _context.Parents
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (parent == null)
             {
@@ -73,7 +73,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var parent = await _context.Parent.FindAsync(id);
+            var parent = await _context.Parents.FindAsync(id);
             if (parent == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace TitanInformationSolutions.Controllers
                 return NotFound();
             }
 
-            var parent = await _context.Parent
+            var parent = await _context.Parents
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (parent == null)
             {
@@ -139,15 +139,15 @@ namespace TitanInformationSolutions.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var parent = await _context.Parent.FindAsync(id);
-            _context.Parent.Remove(parent);
+            var parent = await _context.Parents.FindAsync(id);
+            _context.Parents.Remove(parent);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ParentExists(int id)
         {
-            return _context.Parent.Any(e => e.ID == id);
+            return _context.Parents.Any(e => e.ID == id);
         }
     }
 }

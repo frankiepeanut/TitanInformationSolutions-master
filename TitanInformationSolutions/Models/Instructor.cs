@@ -23,6 +23,9 @@ namespace TitanInformationSolutions.Models
         [StringLength(30)]
         public string lastName { get; set; }
 
+        [StringLength(30)]
+        public string email { get; set; }
+
         public string FullName
         {
             get
@@ -31,9 +34,8 @@ namespace TitanInformationSolutions.Models
             }
         }
 
-        public string email { get; set; }
-
         public virtual ICollection<instructor_Section> Instructor_Sections { get; set; }
+
         public virtual ICollection<instructor_message> Instructor_Messages { get; set; }
     }
 }
